@@ -8,4 +8,5 @@ Usage
 `hex` reads input from standard input and writes output to standard output.
 
 To decode: `cat foo.hex | hex -d`
+
 To encode: `cat foo.bin | hex`
