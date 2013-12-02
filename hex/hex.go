@@ -43,7 +43,7 @@ func encode() {
 
 func decode() {
 	var in [4096]byte
-	var out [4096 / 2]byte // The output of the hex encoding yields is 1/2 the length of the input
+	var out [4096 / 2]byte // The output of the hex decoding yields is 1/2 the length of the input
 
 	for {
 		n, err := os.Stdin.Read(in[:])
