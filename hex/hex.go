@@ -15,7 +15,30 @@ func init() {
 }
 
 func encode() {
-	fmt.Fprintln(os.Stderr, "ERROR: Not implemented")
+	var in [4096]byte
+	var out [4096 * 2]byte // Hex encoding produces twice the bytes
+	for {
+		n, err := os.Stdin.Read(in[:])
+
+		// We'll check the error later. Deal with what we have now
+		m := hex.EncodedLen(n)
+		hex.Encode(out[:m], in[:n])
+		_, wErr := os.Stdout.Write(out[:m])
+		if wErr != nil {
+			fmt.Fprintf(os.Stderr, "ERROR: encode(): %v\n", wErr)
+			os.Exit(1)
+		}
+
+		if err != nil {
+			if err == io.EOF {
+				return
+			}
+
+			fmt.Fprintf(os.Stderr, "ERROR: encode(): %v\n", err)
+			os.Exit(1)
+		}
+
+	}
 }
 
 func decode() {
